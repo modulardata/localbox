@@ -37,6 +37,13 @@ echo "##########################"
 echo "display_errors=On
 xdebug.show_local_vars=1" > /etc/php/7.0/apache2/conf.d/zzzz-custom.ini
 
+echo "##############################"
+echo "## Installation de Composer ##"
+echo "##############################"
+
+curl -s https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+
 service apache2 restart
 
 echo "############################"
@@ -46,3 +53,5 @@ echo "############################"
 if ! [ -x "$(command -v mysql)" ]; then
 	mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';"
 fi
+
+service mysql restart

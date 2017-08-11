@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "./www", "/var/www/localbox"
   
   config.vm.provision :shell do |s|
-    s.name = "Services installation"
+    s.name = "Installation and configuration"
     s.path = "bootstrap.sh"
   end
 
