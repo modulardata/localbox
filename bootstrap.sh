@@ -50,8 +50,9 @@ echo "############################"
 echo "## Configuration de MySQL ##"
 echo "############################"
 
-if ! [ -x "$(command -v mysql)" ]; then
-	mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';"
+if [ ! -f .mysql ]; then
+    mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';"
 fi
+touch .mysql
 
 service mysql restart
