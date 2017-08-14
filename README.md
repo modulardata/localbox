@@ -7,6 +7,7 @@ Localbox is a simple vagrant file which allows you to deploy a full WAMP/LAMP/MA
 * MySQL 5.7
 * Apache 2
 * Composer
+* NodeJS & NPM
 
 ### PHP extensions
 * MySQL

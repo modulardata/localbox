@@ -9,7 +9,8 @@ echo "## Apache, PHP and MySQL installation ##"
 echo "########################################"
 
 export DEBIAN_FRONTEND=noninteractive
-apt-get install -qy apache2 libapache2-mod-php php-mcrypt php-gd php-mbstring php-mysql php-xdebug mysql-server
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+apt-get install -qy apache2 libapache2-mod-php php-mcrypt php-gd php-mbstring php-mysql php-xdebug mysql-server nodejs build-essential
 
 echo "        "
 echo "Installations done"
