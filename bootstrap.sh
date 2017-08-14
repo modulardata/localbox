@@ -10,7 +10,7 @@ echo "########################################"
 
 export DEBIAN_FRONTEND=noninteractive
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-apt-get install -qy apache2 libapache2-mod-php php-mcrypt php-gd php-mbstring php-mysql php-xdebug mysql-server nodejs build-essential
+apt-get install -qy apache2 libapache2-mod-php php-mcrypt php-gd php-mbstring php-mysql php-xdebug mysql-server nodejs
 
 echo "        "
 echo "Installations done"
@@ -76,6 +76,41 @@ service mysql restart
 
 echo "        "
 echo "MySQL configuration done"
+echo "        "
+
+echo "########################"
+echo "## Installing MailHog ##"
+echo "########################"
+
+# Download binary from github
+wget --quiet -O ~/mailhog https://github.com/mailhog/MailHog/releases/download/v1.0.0/MailHog_linux_amd64
+
+# Make it executable
+chmod +x ~/mailhog
+
+# Make it start on reboot
+echo "[Unit]
+Description=MailHog Email Catcher
+After=syslog.target network.target
+
+[Service]
+Type=simple
+ExecStart=/root/mailhog
+StandardOutput=journal
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+" > /etc/systemd/system/mailhog.service
+
+systemctl daemon-reload
+systemctl enable mailhog
+
+# Start it now in the background
+systemctl start mailhog
+
+echo "        "
+echo "MailHog installation done"
 echo "        "
 
 echo " _       ___     __   ____  _      ____    ___   __ __ ";
