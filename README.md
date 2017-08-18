@@ -1,6 +1,6 @@
 LOCALBOX
 ==========
-Localbox is a simple vagrant file which allows you to deploy a full WAMP/LAMP/MAMP server very quickly and easily.
+LocalBox is a simple vagrant file which allows you to deploy a full WAMP/LAMP/MAMP server very quickly and easily.
 
 ## Inside the box
 * PHP 7.0
@@ -8,18 +8,22 @@ Localbox is a simple vagrant file which allows you to deploy a full WAMP/LAMP/MA
 * Apache 2
 * Composer
 * NodeJS & NPM
-* MailHog 1.0.0
+* MailHog 1.0.0 with mhsendmail 0.2.0
 
 ### PHP extensions
 * MySQL
-* GD
+* gd
 * Xdebug
 * mbstring
 * mcrypt
+* xml
+* zip
+* curl
+* intl
 * etc...
 
 ## Requirements
-Localbox is compatible with Windows, MacOS and Linux. You need only 2 things to get started with it: [VirtualBox](https://www.virtualbox.org/) (min v2.1.26) and [Vagrant](https://www.vagrantup.com/) (min v1.9.5).
+You can run LocalBox on Windows, MacOS or Linux as long as you have [VirtualBox](https://www.virtualbox.org/) (min v2.1.26) and [Vagrant](https://www.vagrantup.com/) (min v1.9.5).
 
 ## Get started
 1. Clone or download the repository somewhere on your computer

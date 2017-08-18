@@ -10,7 +10,7 @@ echo "########################################"
 
 export DEBIAN_FRONTEND=noninteractive
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-apt-get install -qy apache2 libapache2-mod-php php-mcrypt php-gd php-mbstring php-mysql php-xdebug php-zip mysql-server nodejs
+apt-get install -qy apache2 libapache2-mod-php php-mcrypt php-gd php-mbstring php-mysql php-xdebug php-xml php-zip php-curl php-intl mysql-server nodejs
 
 echo "        "
 echo "Installations done"
@@ -44,7 +44,9 @@ echo "## PHP Configuration ##"
 echo "#######################"
 
 echo "display_errors=On
-xdebug.show_local_vars=1" > /etc/php/7.0/apache2/conf.d/zzzz-custom.ini
+xdebug.show_local_vars=1
+smtp_port = 1025
+sendmail_path = /usr/local/bin/mhsendmail" > /etc/php/7.0/apache2/conf.d/zzzz-custom.ini
 
 echo "        "
 echo "PHP configuration done"
@@ -83,10 +85,11 @@ echo "## Installing MailHog ##"
 echo "########################"
 
 # Download binary from github
-wget --quiet -O ~/mailhog https://github.com/mailhog/MailHog/releases/download/v1.0.0/MailHog_linux_amd64
+echo "Downloading MailHog..."
+wget --quiet -O /usr/local/bin/mailhog https://github.com/mailhog/MailHog/releases/download/v1.0.0/MailHog_linux_amd64
 
 # Make it executable
-chmod +x ~/mailhog
+chmod +x /usr/local/bin/mailhog
 
 # Make it start on reboot
 echo "[Unit]
@@ -95,7 +98,7 @@ After=syslog.target network.target
 
 [Service]
 Type=simple
-ExecStart=/root/mailhog
+ExecStart=/usr/local/bin/mailhog
 StandardOutput=journal
 Restart=on-failure
 
@@ -109,10 +112,20 @@ systemctl enable mailhog
 # Start it now in the background
 systemctl start mailhog
 
+# Install mhSendMail
+echo "Downloading mhsendmail..."
+wget --quiet -O /usr/local/bin/mhsendmail https://github.com/mailhog/mhsendmail/releases/download/v0.2.0/mhsendmail_linux_amd64
+chmod +x /usr/local/bin/mhsendmail
+
 echo "        "
 echo "MailHog installation done"
 echo "        "
-
+echo "        "
+echo "======================================================================="
+echo " The provisioning of your personal localbox is complete !"
+echo " You can access it with your favorite web browser: http://192.168.33.10/"
+echo " Put you websites in the www folder."
+echo "======================================================================="
 echo " _       ___     __   ____  _      ____    ___   __ __ ";
 echo "| |     /   \   /  ] /    || |    |    \  /   \ |  |  |";
 echo "| |    |     | /  / |  o  || |    |  o  )|     ||  |  |";
