@@ -23,7 +23,7 @@ LocalBox is a simple vagrant file which allows you to deploy a full WAMP/LAMP/MA
 * etc...
 
 ## Requirements
-You can run LocalBox on Windows, MacOS or Linux as long as you have [VirtualBox](https://www.virtualbox.org/) (min v2.1.26) and [Vagrant](https://www.vagrantup.com/) (min v1.9.5).
+You can run LocalBox on Windows, MacOS or Linux as long as you have [VirtualBox](https://www.virtualbox.org/) (min v2.1.26) and [Vagrant](https://www.vagrantup.com/) (min v1.9.5) installed.
 
 ## Get started
 1. Clone or download the repository somewhere on your computer
