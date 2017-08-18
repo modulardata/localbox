@@ -10,7 +10,7 @@ echo "########################################"
 
 export DEBIAN_FRONTEND=noninteractive
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-apt-get install -qy apache2 libapache2-mod-php php-mcrypt php-gd php-mbstring php-mysql php-xdebug mysql-server nodejs
+apt-get install -qy apache2 libapache2-mod-php php-mcrypt php-gd php-mbstring php-mysql php-xdebug php-zip mysql-server nodejs
 
 echo "        "
 echo "Installations done"
