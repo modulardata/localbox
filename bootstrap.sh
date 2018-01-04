@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+if [ -f .mysql ]; then
+	mysqldump --all-databases -uroot -proot > /vagrant/localbox.sql
+fi
+
 apt-get update
 apt-get upgrade -y
 apt-get dist-upgrade -y
@@ -9,8 +13,8 @@ echo "## Apache, PHP and MySQL installation ##"
 echo "########################################"
 
 export DEBIAN_FRONTEND=noninteractive
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-apt-get install -qy apache2 libapache2-mod-php php-mcrypt php-gd php-mbstring php-mysql php-xdebug php-xml php-zip php-curl php-intl mysql-server nodejs
+curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+apt-get install -qy build-essential apache2 libapache2-mod-php7.1 php7.1-mcrypt php7.1-gd php7.1-mbstring php7.1-mysql php7.1-xdebug php7.1-xml php7.1-zip php7.1-curl php7.1-intl php7.1-json php7.1-msgpack php7.1-memcached php7.1-sqlite3 php7.1-gmp php7.1-geoip php7.1-redis mysql-server nodejs
 
 echo "        "
 echo "Installations done"
@@ -21,7 +25,7 @@ echo "## Apache Configuration ##"
 echo "##########################"
 
 echo "<VirtualHost *:80>
-	ServerName local.dev
+	ServerName local.test
 	
 	DocumentRoot /var/www/localbox
 	
