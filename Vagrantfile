@@ -1,4 +1,4 @@
-# Vagrantfile for local.dev
+# Vagrantfile for localbox
 
 Vagrant.configure("2") do |config|
 
