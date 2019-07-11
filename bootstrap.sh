@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Configuration
+NODE_VERSION=10
+PHP_VERSION=7.2
+
+
 if [ -f .mysql ]; then
 	mysqldump --all-databases -uroot -proot > /vagrant/localbox.sql
 fi
@@ -13,13 +18,9 @@ echo "########################################"
 echo "## Apache, PHP and MySQL installation ##"
 echo "########################################"
 
-export DEBIAN_FRONTEND=noninteractive
-curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
-add-apt-repository ppa:ondrej/php
+curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | sudo -E bash -
 apt-get update
-apt-get purge -qy php7*
-apt-get autoremove -qy
-apt-get install -qy build-essential apache2 libapache2-mod-php7.1 php7.1-mcrypt php7.1-gd php7.1-mbstring php7.1-mysql php7.1-xdebug php7.1-xml php7.1-zip php7.1-curl php7.1-intl php7.1-json php7.1-msgpack php7.1-memcached php7.1-sqlite3 php7.1-gmp php7.1-geoip php7.1-redis mysql-server nodejs
+apt-get install -qy apache2 libapache2-mod-php php php-gd php-mbstring php-mysql php-xdebug php-xml php-zip php-curl php-intl php-json php-msgpack php-memcached php-sqlite3 php-gmp php-geoip php-redis mysql-server nodejs
 
 echo "        "
 echo "Installations done"
@@ -43,6 +44,7 @@ echo "<VirtualHost *:80>
 a2ensite 010-localbox
 a2dissite 000-default
 a2enmod rewrite
+systemctl reload apache2
 
 echo "        "
 echo "Apache configuration done"
@@ -55,7 +57,8 @@ echo "#######################"
 echo "display_errors=On
 xdebug.show_local_vars=1
 smtp_port = 1025
-sendmail_path = /usr/local/bin/mhsendmail" > /etc/php/7.1/apache2/conf.d/zzzz-custom.ini
+sendmail_path = /usr/local/bin/mhsendmail" > /etc/php/${PHP_VERSION}/apache2/conf.d/zzzz-custom.ini
+systemctl reload apache2
 
 echo "        "
 echo "PHP configuration done"
@@ -67,8 +70,6 @@ echo "###########################"
 
 curl -s https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
-
-service apache2 restart
 
 echo "        "
 echo "Composer installation done"
@@ -82,8 +83,6 @@ if [ ! -f .mysql ]; then
     mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';"
 fi
 touch .mysql
-
-service mysql restart
 
 echo "        "
 echo "MySQL configuration done"
@@ -130,11 +129,11 @@ echo "        "
 echo "MailHog installation done"
 echo "        "
 echo "        "
-echo "======================================================================="
+echo "========================================================================"
 echo " The provisioning of your personal localbox is complete !"
 echo " You can access it with your favorite web browser: http://192.168.33.10/"
 echo " Put you websites in the www folder."
-echo "======================================================================="
+echo "========================================================================"
 echo " _       ___     __   ____  _      ____    ___   __ __ ";
 echo "| |     /   \   /  ] /    || |    |    \  /   \ |  |  |";
 echo "| |    |     | /  / |  o  || |    |  o  )|     ||  |  |";
@@ -142,4 +141,3 @@ echo "| |___ |  O  |/  /  |     || |___ |     ||  O  ||_   _|";
 echo "|     ||     /   \_ |  _  ||     ||  O  ||     ||     |";
 echo "|     ||     \     ||  |  ||     ||     ||     ||  |  |";
 echo "|_____| \___/ \____||__|__||_____||_____| \___/ |__|__|";
-echo "                                        by Gil Balsiger";

@@ -2,7 +2,7 @@
 
 Vagrant.configure("2") do |config|
 
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "ubuntu/bionic64"
   config.vm.hostname = "localbox"
   config.vm.define "localbox"
   
